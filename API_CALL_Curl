@@ -1,0 +1,37 @@
+#!/bin/bash
+
+    response="$(curl...)"
+
+    #echo "************ jq ***************"
+    #echo $response | jq '.' # Print JSON formt
+    #echo $response | jq '.featureB' # Print specific value
+    #echo $response | jq 'keys' # Print all keys
+    #echo $response | jq 'select(.attribute==true)'
+    #echo $response   
+    #var=$(echo $response | jq '.attribute)
+    #if [ $var == "true" ]; then
+    ##echo 'enter if'
+    #fi
+    #echo "***************************"
+    echo "************ Python ***************"
+    var=$(echo $response | \
+    python -c "import sys, json; \
+    data=json.load(sys.stdin); \
+    print(data.get('attribute', True))")
+    echo $var
+
+    if [ $var == "False" ]; then
+        echo 'enter if'
+    fi
+
+    var2=$(echo $response | \
+    python -c "import sys, json; \
+    data=json.load(sys.stdin); \
+    print(data['attribute'])")
+    echo $var2
+
+    if [ $var2 == "True" ]; then
+        echo 'enter if'
+
+    fi
+    #echo "***************************"
